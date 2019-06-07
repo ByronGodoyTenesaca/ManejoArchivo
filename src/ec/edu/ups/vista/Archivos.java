@@ -49,6 +49,7 @@ public class Archivos extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         txtRuta = new javax.swing.JTextField();
         btnBuscar = new javax.swing.JButton();
+        btnRegresar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -72,8 +73,6 @@ public class Archivos extends javax.swing.JFrame {
         itemRenombrar = new javax.swing.JMenuItem();
         itemCrearCarpeta = new javax.swing.JMenuItem();
         itemEliminar = new javax.swing.JMenuItem();
-        jMenu7 = new javax.swing.JMenu();
-        jMenuItem2 = new javax.swing.JMenuItem();
 
         jMenu2.setText("jMenu2");
 
@@ -89,12 +88,19 @@ public class Archivos extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Ruta", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 2, 14))); // NOI18N
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Ruta", 0, 0, new java.awt.Font("Tahoma", 2, 14))); // NOI18N
 
         btnBuscar.setText("Buscar");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBuscarActionPerformed(evt);
+            }
+        });
+
+        btnRegresar.setText("regresar");
+        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegresarActionPerformed(evt);
             }
         });
 
@@ -107,7 +113,9 @@ public class Archivos extends javax.swing.JFrame {
                 .addComponent(txtRuta, javax.swing.GroupLayout.PREFERRED_SIZE, 384, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnBuscar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnRegresar)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -115,11 +123,12 @@ public class Archivos extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtRuta, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnBuscar))
+                    .addComponent(btnBuscar)
+                    .addComponent(btnRegresar))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Documentos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 2, 14))); // NOI18N
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Documentos", 0, 0, new java.awt.Font("Tahoma", 2, 14))); // NOI18N
 
         jLabel1.setText("Directorios");
 
@@ -191,7 +200,7 @@ public class Archivos extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Informacion", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 2, 14))); // NOI18N
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Informacion", 0, 0, new java.awt.Font("Tahoma", 2, 14))); // NOI18N
 
         jLabel4.setText("Ruta Absoluta:");
 
@@ -214,7 +223,7 @@ public class Archivos extends javax.swing.JFrame {
                     .addComponent(txtTamaño, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtRutaAbsoluta, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtUltimaModificacion, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -274,18 +283,6 @@ public class Archivos extends javax.swing.JFrame {
         jMenu1.add(itemEliminar);
 
         jMenuBar1.add(jMenu1);
-
-        jMenu7.setText("Regresar");
-
-        jMenuItem2.setText("Regresar");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
-            }
-        });
-        jMenu7.add(jMenuItem2);
-
-        jMenuBar1.add(jMenu7);
 
         setJMenuBar(jMenuBar1);
 
@@ -381,7 +378,7 @@ public class Archivos extends javax.swing.JFrame {
     }//GEN-LAST:event_itemCrearArchivoActionPerformed
 
     private void itemRenombrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemRenombrarActionPerformed
-        boolean isValid;
+        boolean isValid=false;
         String archivo=null;
         if(!lstArchivo.isSelectionEmpty()){
             archivo=lstArchivo.getSelectedValue();
@@ -391,8 +388,10 @@ public class Archivos extends javax.swing.JFrame {
                 archivo=lstOculto.getSelectedValue();
         }else{
             isValid=true;
+            JOptionPane.showMessageDialog(this, "seleccione un archivo o directorio");
         }
         
+        if(isValid==false){
         String rutaSeleccionada=txtRuta.getText().trim()+"\\"+archivo;
         File renombrar=new File(rutaSeleccionada);
         
@@ -405,7 +404,7 @@ public class Archivos extends javax.swing.JFrame {
         }else{
             renombrar.renameTo(archivoNuevo);
         }
-        
+        }
         btnBuscarActionPerformed(evt);
     }//GEN-LAST:event_itemRenombrarActionPerformed
 
@@ -423,7 +422,7 @@ public class Archivos extends javax.swing.JFrame {
     }//GEN-LAST:event_itemCrearCarpetaActionPerformed
 
     private void itemEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemEliminarActionPerformed
-         boolean isValid = false;
+        boolean isValid = false;
         String archivo=null;
         
         if(!lstArchivo.isSelectionEmpty()){
@@ -455,15 +454,15 @@ public class Archivos extends javax.swing.JFrame {
             String ruta=txtRuta.getText().trim()+"\\"+lstDirectorio.getSelectedValue();
             txtRuta.setText(ruta);
            java.awt.event.ActionEvent av1;
-            ActionEvent ev1 = null;
-            btnBuscarActionPerformed(ev1);
+           av1 = null;
+            btnBuscarActionPerformed(av1);
         }
     }//GEN-LAST:event_lstDirectorioMouseClicked
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-       String ruta=txtRuta.getText().trim();
+    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
+        String ruta=txtRuta.getText().trim();
         String rutaNueva=null;
-         System.out.println("fnoie");
+         
         for(int i=ruta.length()-1;i>2;i--){
              
              if((int)ruta.charAt(i)==92){
@@ -474,7 +473,7 @@ public class Archivos extends javax.swing.JFrame {
                 break;
             }
         }
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
+    }//GEN-LAST:event_btnRegresarActionPerformed
 
     public void mostrarInformacionArchivoSeleccionado(String rutaSeleccionada){
         File archivoSeleccionado = new File(rutaSeleccionada);
@@ -526,6 +525,7 @@ public class Archivos extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnRegresar;
     private javax.swing.JMenuItem itemCrearArchivo;
     private javax.swing.JMenuItem itemCrearCarpeta;
     private javax.swing.JMenuItem itemEliminar;
@@ -541,11 +541,9 @@ public class Archivos extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
-    private javax.swing.JMenu jMenu7;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

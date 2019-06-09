@@ -437,16 +437,18 @@ public class Archivos extends javax.swing.JFrame {
         }
         
         String rutaArchivo=txtRuta.getText().trim()+"\\"+archivo;
-        File eliminar=new File(rutaArchivo);
+       
         
         if(isValid==false){
         int r=JOptionPane.showConfirmDialog(this, "Seguro que desea eliminar "+archivo);
         
         if(r==0){
-            eliminar.delete();
+            eliminar(rutaArchivo);
         }
+        
         }
         btnBuscarActionPerformed(evt);
+        
     }//GEN-LAST:event_itemEliminarActionPerformed
 
     private void lstDirectorioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstDirectorioMouseClicked
@@ -521,6 +523,31 @@ public class Archivos extends javax.swing.JFrame {
                 new Archivos().setVisible(true);
             }
         });
+    }
+    
+    public String eliminar(String ruta) {
+        if (ruta != null) {
+            eliminar(hayCarpetas(ruta));
+            File folder = new File(ruta);
+            for (File file : folder.listFiles()) {
+                if (file.isFile())
+                    file.delete();
+            }
+            while (hayCarpetas(ruta) != null) 
+                eliminar(hayCarpetas(ruta));
+            folder.delete();
+            return ruta;
+        }
+        return ruta;
+    }
+
+    public String hayCarpetas(String ruta) {
+        File folder = new File(ruta);
+        for (File file : folder.listFiles()) {
+            if (file.isDirectory()) 
+                return file.getPath();
+        }
+        return null;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
